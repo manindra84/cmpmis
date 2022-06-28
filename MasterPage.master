@@ -1,0 +1,93 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="Styles/style.css" rel="stylesheet" />
+    <%--<link rel="stylesheet" href="Styles/MainStyles.css" />--%>
+  <%--  <script src="JS/jquery-3.4.1.js"></script>--%>
+     <script src="JS/jquery-3.6.0.js" type="text/javascript"></script>
+    <script src="JS/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //the trigger on hover when cursor directed to this class
+            $(".core-menu li").hover(
+                function () {
+                    //i used the parent ul to show submenu
+                    $(this).children('ul').slideDown('fast');
+                },
+            //when the cursor away 
+                function () {
+                    $('ul', this).slideUp('fast');
+                });
+            //this feature only show on 600px device width
+            $(".hamburger-menu").click(function () {
+                $(".burger-1, .burger-2, .burger-3").toggleClass("open");
+                $(".core-menu").slideToggle("fast");
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <section class="headerTop">
+        <div class="container">          
+            <div class="row">             
+                <div class="col-12 col-md-12 col-sm-12 headerBox">                    
+                    <center><asp:Label runat="server" Text="CM-Project Monitoring Information System" Font-Bold="true" ForeColor="#0b2d4d" Font-Size="XX-Large"></asp:Label></center><br />                        
+                </div>                   
+            </div>
+            <div class="row" style="background-color:#0b2d4d;border-start-start-radius:5px;border-start-end-radius:5px;height:40px;"></div>
+        </div>
+    </section>
+    <section class="">
+        <div class="container">           
+            <div id='Div1' class='main-menu'>
+              <%--  <div class='container-menu'>
+                    <nav class='navigation'>
+                        <span class='hamburger-menu'>Navigate
+                      <span class='burger-1'></span>
+                        <span class='burger-2'></span>
+                        <span class='burger-3'></span>
+                        </span>
+                        <ul class='core-menu'>
+                        <li><a href="Home.aspx">Home</a></li>
+                            <li><a href='#'>Receipt / 80G<span class='toggle'></span></a>
+                                <ul class='dropdown'>
+                                    <li><a href="DonationForm.aspx">Apply For Receipt</a></li>
+                                    <li><a href='DownloadReceipt.aspx'>Print / Download Payment Receipt/80G Certificate</a></li>
+                                    <li><a href='PrintCertificateForm.aspx'>View Status of Receipt/80G Certificate</a></li>
+                                </ul>
+                             </li>
+                             <li><a href="DonateOnline.aspx">Donate Online</a></li>
+                            <li><a href='FAQ.aspx'>FAQs</a></li>
+                            <li><a href="Contact.aspx">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>--%>
+            </div>
+        </div>
+    </section>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+    </div>
+    <br />
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="footerBox">
+                        Disclaimer : This site has been designed and hosted by NIC and the contents are provided by concerned departments. NIC will not be responsible for any inaccuracy in the data on this website.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </form>
+</body>
+</html>

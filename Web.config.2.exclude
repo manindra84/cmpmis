@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+
+<configuration>
+  <appSettings>
+
+    <add key="connectionString_CMRF" value="Host=localhost;Port=5432;User Id=postgres;Password=postgres;Database=emsnew;  " />
+    <add key="SecurityKey" value="Main Bhartiye hoon." />
+    <add key="KeytoPay" value="M$UTW7^)C%" />
+    <add key="Schemeid" value="107" />
+  </appSettings>
+
+  <system.web>
+
+    <customErrors mode="On" defaultRedirect="~/login.aspx"/>  
+    <trace enabled="false" localOnly="false" requestLimit="20" />
+
+    <!--set compilation debug="false" while published on server -->
+    <compilation debug="true" targetFramework="4.0" />
+
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/Login.aspx" timeout="2880"   />
+    </authentication>
+
+    <membership>
+      <providers>
+        <clear />
+        <add name="AspNetSqlMembershipProvider" type="System.Web.Security.SqlMembershipProvider" connectionStringName="ApplicationServices" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="false" requiresUniqueEmail="false" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="6" minRequiredNonalphanumericCharacters="0" passwordAttemptWindow="10" applicationName="/" />
+      </providers>
+    </membership>
+
+    <!--<profile>
+      <providers>
+        <clear />
+        <add name="AspNetSqlProfileProvider" type="System.Web.Profile.SqlProfileProvider" connectionStringName="ApplicationServices" applicationName="/" />
+      </providers>
+    </profile>-->
+
+    <roleManager enabled="false">
+      <providers>
+        <clear />
+        <add name="AspNetSqlRoleProvider" type="System.Web.Security.SqlRoleProvider" connectionStringName="ApplicationServices" applicationName="/" />
+        <add name="AspNetWindowsTokenRoleProvider" type="System.Web.Security.WindowsTokenRoleProvider" applicationName="/" />
+      </providers>
+    </roleManager>
+
+    <httpCookies httpOnlyCookies="true" requireSSL="false" />
+    <httpRuntime executionTimeout="3600" maxRequestLength="1048576" requestValidationMode="2.0" enableVersionHeader="false" />
+    <sessionState  timeout="20"></sessionState>
+    <trust level="Full" />
+    <authorization>
+      <deny verbs="OPTIONS" users="*" />
+    </authorization>
+    
+    <pages viewStateEncryptionMode="Always" enableViewStateMac="true" validateRequest="false" />
+
+    <!--<pages controlRenderingCompatibilityVersion="3.5" viewStateEncryptionMode="Always" validateRequest="false"
+       clientIDMode="AutoID">
+      <controls>
+        <add tagPrefix="asp" namespace="System.Web.UI.DataVisualization.Charting"
+          assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+      </controls>
+    </pages>-->
+
+  </system.web>
+
+  <system.webServer>
+     <modules runAllManagedModulesForAllRequests="true" />
+    <validation validateIntegratedModeConfiguration="false" />
+    
+    <security>
+      <!--removeServerHeader ="true" tag works only in IIS-10 , if IIS version not IIS-10 then for Hide Server Header, u have install URL Rewrite 
+          setup and add Rewrit Tag as written if u have IIS-10 then no need to write rewrite tag just add removeServerHeader ="true" in requestFiltering -->
+       <!--<requestFiltering removeServerHeader ="true" >-->
+      <requestFiltering >
+        <requestLimits maxAllowedContentLength="2147483648" />
+      </requestFiltering>
+    </security>
+    
+    <directoryBrowse enabled="false" />
+    <defaultDocument>
+            <files>
+                <add value="login.aspx" />
+            </files>
+        </defaultDocument>
+
+    <httpProtocol>
+      <customHeaders>
+        <!--<add name="Server" value="Elitigation Bills"/>-->
+        <remove name="X-Powered-By" />
+        <add name="X-UA-Compatible" value="IE=EmulateIE7" />
+        <add name="Content-Security-Policy" value="frame-ancestors 'self';" />
+        <add name="X-Content-Type-Options" value="nosniff" />
+        <add name="Cache-Control" value="no-cache, private , no-store, must-revalidate, pre-check=0, post-check=0, max-age=0, s-maxage=0" />
+        <add name="Pragma" value="no-cache" />
+        <add name="Expires" value="0" />
+        <add name="X-Frame-Options" value="DENY" />
+        <add name="X-XSS-Protection" value="1; mode=block" />
+        <add name="X-Permitted-Cross-Domain-Policies" value="none" />
+       <add name="Referrer-Policy" value=" no-referrer" />
+
+      </customHeaders>
+    </httpProtocol>
+     <!--removeServerHeader ="true" tag works only in IIS-10 , if IIS version not IIS-10 then for Hide Server Header, u have install URL Rewrite 
+          setup and add Rewrit Tag as written if u have IIS-10 then no need to write rewrite tag just add removeServerHeader ="true" in requestFiltering -->
+       <rewrite>
+            <outboundRules>
+                <rule name="Modify Server header value" patternSyntax="Wildcard">
+                    <match serverVariable="RESPONSE_SERVER" pattern="*" />
+                    <action type="Rewrite" value="CMDashboard" />
+                </rule>
+            </outboundRules>
+        </rewrite>
+    
+  </system.webServer>
+</configuration>

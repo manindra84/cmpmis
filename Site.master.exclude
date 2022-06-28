@@ -1,0 +1,177 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="Styles/style.css" rel="stylesheet" />
+    <%--<link rel="stylesheet" href="Styles/MainStyles.css" />--%>
+    <script src="JS/jquery-3.4.1.js"></script>
+    <script src="JS/bootstrap.min.js "></script>
+    <script>
+        $(document).ready(function () {
+            //the trigger on hover when cursor directed to this class
+            $(".core-menu li").hover(
+                function () {
+                    //i used the parent ul to show submenu
+                    $(this).children('ul').slideDown('fast');
+                },
+            //when the cursor away 
+                function () {
+                    $('ul', this).slideUp('fast');
+                });
+            //this feature only show on 600px device width
+            $(".hamburger-menu").click(function () {
+                $(".burger-1, .burger-2, .burger-3").toggleClass("open");
+                $(".core-menu").slideToggle("fast");
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <section class="headerTop">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12 headerBox">
+                    <img src="images/Header2.png" alt="Header" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="">
+        <div class="container">
+            <div id='Div1' class='main-menu'>
+                <div class='container-menu'>
+                    <nav class='navigation'>
+                        <span class='hamburger-menu'>Navigate
+                      <span class='burger-1'></span>
+                        <span class='burger-2'></span>
+                        <span class='burger-3'></span>
+                        </span>
+                        <ul class='core-menu'>
+                        <li><a href="Home.aspx">Home</a></li>
+                        
+                        <%
+                            if (!string.IsNullOrEmpty(Session["userid"].ToString()))
+                            { %>
+                            <%--For Entry user--%>
+                            <%if (Session["usertype"].ToString() == "12")
+                              { %>                         
+                           <li><a href='#'>Project<span class='toggle'></span></a>
+                                <ul class='dropdown'>
+                                   <%-- <li><a href="PendingList.aspx">Pending for Confirmation</a></li>--%>
+                                    <li><a href="projectmaster.aspx">Add New</a></li>
+                                    <li><a href="project_details.aspx">View List</a></li>
+                                </ul>
+                             </li>
+
+                             <li><a href='#'>Activity<span class='toggle'></span></a>
+                                <ul class='dropdown'>
+                                    <li><a href="Project_details.aspx?new=n">Add New</a></li>
+                                    <li><a href="Project_details.aspx?view=v">View List </a></li>
+                                </ul>
+                             </li>
+                              <li><a href='#'>Masters<span class='toggle'></span></a>
+                                <ul class='dropdown'>
+                                    <li><a href="DeptMaster.aspx">Department Master</a></li>                                   
+                                </ul>
+                             </li>
+                            <%-- <li><a href="StatisticsReport.aspx">Options</a>
+                            <ul class="dropdown">
+                                <li><a href="EnterUserDetails.aspx">Update Profile</a></li>
+                                <li><a href="Changepwd.aspx">Change Profile</a></li>
+                            </ul>
+                                 </li>  --%>                         
+                             <%}
+                                 //For CMO user
+                                 else if (Session["usertype"].ToString() == "11")
+                                 {%>
+                                <li><a href="#">Projects</a>
+                                <ul class='dropdown'>                                 
+                                     <li><a href="CMOProject_details.aspx?cmoview=y">All</a></li>
+                                     <li><a href="CMOProject_details.aspx?cmostatus=P">Pending</a></li>    
+                                    <li><a href="CMOProject_details.aspx?cmostatus=C">Completed</a></li> 
+                                </ul>
+                                </li>
+                             <%--<li><a href="#">Options</a>
+                                <ul class='dropdown'>                                 
+                                     <li><a href="EnterUserDetails.aspx">Update Profile</a></li>
+                                     <li><a href="Changepwd.aspx">Change Password</a></li>
+                                </ul>
+                                </li>--%>
+                             <%}
+                                 //
+                                 else if (Session["usertype"].ToString() == "10")
+                                     //For Department user
+                              {%>
+                                    <li><a href="#">Activity List</a>
+                                        <ul class="dropdown">
+                                            <li><a href="DeptLogin.aspx?flag=imXblvk2We4=">Enter Action</a></li>
+                                            <li><a href="DeptLogin.aspx?flag=mTFpyzyr Zo=">Revise Timeline</a></li>
+                                            <li><a href="DeptLogin.aspx?flag=H9MYgY7k3NM=">View Action</a></li>
+                                        </ul>
+                                    </li>
+                             <li><a href="DeptLogin.aspx">View Projects</a></li>
+                                 <%--<li><a href="#">Options</a>
+                                        <ul class="dropdown">
+                                            <li><a href="EnterUserDetails.aspx">Update Profile</a></li>
+                                            <li><a href="Changepwd.aspx">Change Password</a></li>                                            
+                                        </ul>
+                                    </li>--%>
+                             <%} %>
+                            <%--Common Pages--%>
+                              <li><a href='#'>Profile<span class='toggle'></span></a>
+                                <ul class='dropdown'>                                 
+                                     <li><a href="Changepasswrd.aspx">Change Password</a></li>
+                                    <li><a href="EnterUserDetails.aspx">Update Profile</a></li>
+                             		<li><a href="Logout.aspx">Logout</a></li>                                  
+                                </ul>
+                                </li>
+                        <%}
+                            else
+                            {%>
+                            <li><a href='#'>Receipt<span class='toggle'></span></a>
+                                <ul class='dropdown'>
+                                    <li><a href="DonationForm.aspx">Apply Receipt</a></li>
+                                    <%--<li><a href='#'>Print</a></li>--%>
+                                </ul>
+                             </li>
+                             <li><a href="DonateOnline.aspx">Donate Online</a></li>
+                            <li><a href='FAQ.aspx'>FAQs</a></li>
+                            <li><a href="Contact.aspx">Contact Us</a></li>
+                            <li><a href="Login.aspx">Department Login</a></li>
+                        
+                        <% } %>
+                           
+                           
+                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <br />
+    <section class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="footerBox">
+                        Disclaimer : This site has been designed and hosted by NIC and the contents are provided by concerned departments. NIC will not be responsible for any inaccuracy in the data on this website.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </form>
+</body>
+</html>
